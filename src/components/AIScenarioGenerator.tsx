@@ -204,7 +204,9 @@ const AIScenarioGenerator = ({ onScenarioCreated }: AIScenarioGeneratorProps) =>
 
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
-      if (apiKey) {
+      if (!apiKey) {
+        toast.error('API Key Missing! If you are on Vercel, add VITE_GEMINI_API_KEY in Settings > Environment Variables, then click Redeploy.');
+      } else {
         try {
           const sysInst = `You are an expert scientific, economic, and systemic simulation generator. Your primary and absolute directive is to generate a highly realistic, deeply custom-tailored JSON scenario configuration based EXACTLY on the user's request. YOU MUST PERFECTLY SIMULATE WHAT THE USER ASKS FOR. DO NOT JUST THROW A DEFAULT OR GENERIC SIMULATION. The simulation MUST be deeply related to the user's prompt. If they ask for a 'medieval bakery', you must create sliders/metrics specific to medieval baking, NOT generic business metrics. 
 

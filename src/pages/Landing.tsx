@@ -14,7 +14,7 @@ const Landing = () => {
       <div className="absolute top-[40%] left-[30%] w-[30vw] h-[30vw] bg-cyan-500/10 rounded-full blur-[100px] mix-blend-screen animate-pulse pointer-events-none" style={{ animationDuration: '10s', animationDelay: '4s' }} />
 
       {/* Grid Pattern overlay */}
-      <div className="absolute inset-0 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] opacity-20 pointer-events-none mix-blend-overlay" />
+      <div className="absolute inset-0 opacity-20 pointer-events-none mix-blend-overlay" />
       <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:64px_64px] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_10%,transparent_100%)] pointer-events-none" />
 
       {/* Content */}
