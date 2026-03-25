@@ -333,15 +333,19 @@ Rules:
                 success = true;
                 } catch (parseError) {
                   console.error("JSON parse failed. Raw string:", textResp, parseError);
+                  toast.error("Gemini returned invalid JSON structure.");
                 }
               }
             } else {
-               // Break on other errors (like 400 Bad Request)
+               const errText = await res.text().catch(() => '');
+               console.error("API Error", res.status, errText);
+               toast.error(`API Error ${res.status}: ${res.statusText}`);
                break;
             }
           }
-        } catch (e) {
+        } catch (e: any) {
           console.error("Direct Gemini API failed", e);
+          toast.error(`Network Error: ${e.message}`);
         }
       }
 
