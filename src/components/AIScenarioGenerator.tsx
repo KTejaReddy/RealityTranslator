@@ -195,6 +195,12 @@ const AIScenarioGenerator = ({ onScenarioCreated }: AIScenarioGeneratorProps) =>
   const [currentExample, setCurrentExample] = useState(0);
 
   const handleGenerate = useCallback(async () => {
+    if (!prompt.trim() || isGenerating) return;
+    setIsGenerating(true);
+    setStatusText('Building Reality Simulation...');
+    
+    try {
+      let scenario: Scenario | null = null;
       let errorReason = '';
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
