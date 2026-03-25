@@ -46,11 +46,11 @@ function buildMetricCompute(formula: string, sliderIds: string[]): MetricConfig[
   };
 }
 
-function generateMockScenario(prompt: string): Scenario {
+function generateMockScenario(prompt: string, errorReason?: string): Scenario {
   const p = prompt.toLowerCase();
   
   let title = "Complex System";
-  let description = `A simulated environmental model of ${prompt.trim()}`;
+  let description = errorReason ? `⚠️ AI FALLBACK ACTIVATED: ${errorReason}. Simulated model of ${prompt.trim()}` : `A simulated environmental model of ${prompt.trim()}`;
   let icon = "🌐";
   let visualTheme: any = "climate";
   let custom3D: any = null;
@@ -195,16 +195,11 @@ const AIScenarioGenerator = ({ onScenarioCreated }: AIScenarioGeneratorProps) =>
   const [currentExample, setCurrentExample] = useState(0);
 
   const handleGenerate = useCallback(async () => {
-    if (!prompt.trim() || isGenerating) return;
-    setIsGenerating(true);
-    setStatusText('Building Reality Simulation...');
-    
-    try {
-      let scenario: Scenario | null = null;
-
+      let errorReason = '';
       const apiKey = import.meta.env.VITE_GEMINI_API_KEY;
 
       if (!apiKey) {
+        errorReason = 'API Key is Missing/Undefined in Vercel settings';
         toast.error('API Key Missing! If you are on Vercel, add VITE_GEMINI_API_KEY in Settings > Environment Variables, then click Redeploy.');
       } else {
         try {
@@ -333,25 +328,31 @@ Rules:
                 success = true;
                 } catch (parseError) {
                   console.error("JSON parse failed. Raw string:", textResp, parseError);
+                  errorReason = 'Gemini returned invalid or corrupted JSON data';
                   toast.error("Gemini returned invalid JSON structure.");
                 }
+              } else {
+                errorReason = 'Google blocked AI safety filter or returned empty text';
+                break;
               }
             } else {
                const errText = await res.text().catch(() => '');
                console.error("API Error", res.status, errText);
+               errorReason = `${res.status} Key Status Error (${errText.substring(0,60)})`;
                toast.error(`API Error ${res.status}: ${res.statusText}`);
                break;
             }
           }
         } catch (e: any) {
           console.error("Direct Gemini API failed", e);
+          errorReason = `Network JS Error: ${e.message} (CORS?)`;
           toast.error(`Network Error: ${e.message}`);
         }
       }
 
       if (!scenario) {
         // Ultimate local fallback
-        scenario = generateMockScenario(prompt);
+        scenario = generateMockScenario(prompt, errorReason);
       }
 
       onScenarioCreated(scenario);
