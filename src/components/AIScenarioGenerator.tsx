@@ -349,6 +349,12 @@ Rules:
                break;
             }
           }
+          
+          if (!success && attempts >= 3) {
+            errorReason = 'API Rate Limit Exceeded (429 Too Many Requests)';
+            toast.error('Google Gemini API Rate Limit Exceeded! Please wait a full minute before generating again.');
+          }
+          
         } catch (e: any) {
           console.error("Direct Gemini API failed", e);
           errorReason = `Network JS Error: ${e.message} (CORS?)`;
