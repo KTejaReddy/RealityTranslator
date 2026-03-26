@@ -649,22 +649,40 @@ export function GovernmentDashboard() {
 
           {activeScenario && (
             <div className="p-4 border-t border-white/10 bg-black/30">
-              <div className="mb-4">
-                <ControlPanel sliders={activeScenario.sliders} values={sliderValues} onChange={setSliderValue} />
-              </div>
-              <AILiveInsights scenario={activeScenario} sliderValues={sliderValues} />
+              <ControlPanel sliders={activeScenario.sliders} values={sliderValues} onChange={setSliderValue} />
             </div>
           )}
         </div>
 
         <div className="w-full lg:w-[320px] flex flex-col gap-4 overflow-y-auto no-scrollbar pl-1 flex-none">
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            animate={{ opacity: 1, x: 0 }}
-            className="glass-panel p-5 rounded-3xl border-white/10 shadow-xl bg-black/40"
-          >
-            {activeScenario ? <MetricsDisplay metrics={activeScenario.metrics} values={metricValues} /> : <div className="text-white/50">Metrics will appear after a simulation is generated.</div>}
-          </motion.div>
+          {activeScenario ? (
+            <>
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                className="glass-panel p-5 rounded-3xl border-white/10 shadow-xl bg-black/40"
+              >
+                <MetricsDisplay metrics={activeScenario.metrics} values={metricValues} />
+              </motion.div>
+              
+              <motion.div
+                initial={{ opacity: 0, x: 30 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ delay: 0.1 }}
+                className="glass-panel p-5 rounded-3xl border-white/10 shadow-xl bg-black/40"
+              >
+                <AILiveInsights scenario={activeScenario} sliderValues={sliderValues} />
+              </motion.div>
+            </>
+          ) : (
+            <motion.div
+              initial={{ opacity: 0, x: 30 }}
+              animate={{ opacity: 1, x: 0 }}
+              className="glass-panel p-5 rounded-3xl border-white/10 shadow-xl bg-black/40"
+            >
+              <div className="text-white/50 text-sm">Metrics and AI insights will appear after a simulation is generated.</div>
+            </motion.div>
+          )}
         </div>
       </div>
     </div>
