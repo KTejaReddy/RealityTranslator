@@ -55,13 +55,23 @@ const Landing = () => {
           className="flex flex-col sm:flex-row items-center gap-6"
         >
           <button 
-            onClick={() => navigate('/simulate')}
+            onClick={() => navigate('/login-user')}
             className="group relative px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/20 rounded-full font-semibold text-white transition-all duration-300 overflow-hidden flex items-center gap-3 backdrop-blur-xl shadow-[0_0_40px_rgba(0,255,255,0.1)] hover:shadow-[0_0_60px_rgba(0,255,255,0.25)] hover:border-primary/50"
           >
             <div className="absolute inset-0 bg-gradient-to-r from-primary/20 to-accent/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
             <Sparkles className="w-5 h-5 text-primary group-hover:animate-pulse" />
-            <span className="relative z-10 tracking-wide">Enter the Simulator</span>
+            <span className="relative z-10 tracking-wide">User Login</span>
             <ArrowRight className="w-5 h-5 text-accent group-hover:translate-x-1 transition-transform" />
+          </button>
+
+          <button 
+            onClick={() => navigate('/login-government')}
+            className="group relative px-8 py-4 bg-white/5 hover:bg-white/10 border border-white/20 rounded-full font-semibold text-white transition-all duration-300 overflow-hidden flex items-center gap-3 backdrop-blur-xl shadow-[0_0_40px_rgba(255,0,255,0.1)] hover:shadow-[0_0_60px_rgba(255,0,255,0.25)] hover:border-accent/50"
+          >
+            <div className="absolute inset-0 bg-gradient-to-r from-accent/20 to-primary/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+            <Globe2 className="w-5 h-5 text-accent group-hover:animate-pulse" />
+            <span className="relative z-10 tracking-wide">Official Login</span>
+            <ArrowRight className="w-5 h-5 text-primary group-hover:translate-x-1 transition-transform" />
           </button>
         </motion.div>
 

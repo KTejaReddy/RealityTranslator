@@ -6,6 +6,7 @@ import MetricsDisplay from "../components/MetricsDisplay";
 import SimulationCanvas from "../components/SimulationCanvas";
 import AIScenarioGenerator from "../components/AIScenarioGenerator";
 import { scenarios as builtInScenarios, type Scenario } from '@/lib/scenarios';
+import { IndexLinks } from "@/modules/navigation/IndexLinks";
 
 const Index = () => {
   const [customScenarios, setCustomScenarios] = useState<Scenario[]>([]);
@@ -91,15 +92,21 @@ const Index = () => {
               Reality <span className="text-primary glow-text-cyan font-light">Translator</span>
             </h1>
             <p className="text-white/50 text-[10px] uppercase font-semibold tracking-wider mt-1">AI Powered Sandbox</p>
+            <p className="text-accent/70 text-[10px] mt-1 max-w-[200px] leading-tight pr-2">
+              The predefined scenarios below are examples of generated simulations.
+            </p>
           </div>
         </div>
 
-        <ScenarioSelector
-          scenarios={allScenarios}
-          selected={selectedId}
-          onSelect={setSelectedId}
-          onRemoveCustom={handleRemoveCustom}
-        />
+        <div className="flex flex-col items-end gap-3 flex-1 overflow-hidden ml-4">
+          <IndexLinks compact />
+          <ScenarioSelector
+            scenarios={allScenarios}
+            selected={selectedId}
+            onSelect={setSelectedId}
+            onRemoveCustom={handleRemoveCustom}
+          />
+        </div>
       </motion.header>
 
       {/* Main Content Area */}

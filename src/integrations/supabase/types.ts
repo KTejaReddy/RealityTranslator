@@ -14,7 +14,26 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      users: {
+        Row: { id: string; role: string; email: string; password: string };
+        Insert: { id?: string; role: string; email: string; password: string };
+        Update: { id?: string; role?: string; email?: string; password?: string };
+      };
+      simulations: {
+        Row: { id: string; name: string; type: string; region: string; data: any; created_by: string; created_at: number };
+        Insert: { id?: string; name: string; type: string; region: string; data: any; created_by: string; created_at: number };
+        Update: { id?: string; name?: string; type?: string; region?: string; data?: any; created_by?: string; created_at?: number };
+      };
+      datasets: {
+        Row: { id: string; name: string; type: string; region: string; source: string; format: string; uploaded_by: string; uploaded_at: number };
+        Insert: { id?: string; name: string; type: string; region: string; source: string; format: string; uploaded_by: string; uploaded_at: number };
+        Update: { id?: string; name?: string; type?: string; region?: string; source?: string; format?: string; uploaded_by?: string; uploaded_at?: number };
+      };
+      government_requests: {
+        Row: { id: string; type: string; region: string; parameters: any; status: string; created_at: number };
+        Insert: { id?: string; type: string; region: string; parameters: any; status: string; created_at: number };
+        Update: { id?: string; type?: string; region?: string; parameters?: any; status?: string; created_at?: number };
+      };
     }
     Views: {
       [_ in never]: never
